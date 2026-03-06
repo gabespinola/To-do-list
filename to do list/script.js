@@ -18,33 +18,71 @@ function adicionarTarefa() {
       }else {
       
       
-       let mensagemsucesso = "Tarefa adicionada com sucesso!";
+      let mensagemsucesso = "Tarefa adicionada com sucesso!";
       mensagem.textContent = mensagemsucesso;
       tarefas.push(tarefa)
       renderizarTarefas()
       
-       mensagem.className=" sucesso"
+      mensagem.className=" sucesso"
       }
       
       
-       inputtarefa.value= ""
+      inputtarefa.value= ""
 
      
 
     }
 
-    function renderizarTarefas(){
+function renderizarTarefas(){
       
-       const listatarefas= document.getElementById("listatarefas")
-       listatarefas.innerHTML = ""
-      
-       let i = 0
-       for (i; i < tarefas.length; i++){
-      let novatarefa = document.createElement("li")
-      novatarefa.textContent= tarefas[i]
-      listatarefas.appendChild(novatarefa)
-
-       }
+      const listatarefas= document.getElementById("listatarefas")
+      listatarefas.innerHTML = ""
       
        
+      for (let i =0; i < tarefas.length; i++){
+      let novatarefa = document.createElement("li")
+      novatarefa.textContent= tarefas[i]
+      
+      let botaoRemover =document.createElement("button")
+      botaoRemover.className= "remover"
+      botaoRemover.textContent= "remover"
+      botaoRemover.onclick= () => removerTarefa()
+
+      let botaoeditar =document.createElement("button")
+      botaoeditar.className= "editar"
+      botaoeditar.textContent= "editar"
+      botaoeditar.onclick= () => editarTarefa(i)
+
+      
+      
+      novatarefa.appendChild(botaoRemover)
+      novatarefa.appendChild(botaoeditar)
+      listatarefas.appendChild(novatarefa)
+
+      }
+      
+       
+    }
+
+    function removerTarefa(i){
+      tarefas.splice(i, 1)
+      renderizarTarefas()
+
+    }
+
+    function editarTarefa(i){
+     let tarefaEditada= prompt("Edite a tarefa:")
+     if (tarefaEditada.trim() !== ""){
+      tarefas[i]= tarefaEditada
+      renderizarTarefas()
+     }
+      
+
+    }
+
+    function Limparlista(){
+      tarefas.length = 0
+      renderizarTarefas()
+      const mensagem = document.getElementById("mensagem")
+      mensagem.textContent ="Lista de tarefas limpa com sucesso! "
     }
