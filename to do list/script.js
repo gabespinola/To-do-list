@@ -1,4 +1,4 @@
- let tarefas = JSON.parse(localStorage.getItem("tarefas")) || []
+let tarefas = JSON.parse(localStorage.getItem("tarefas")) || []
 
 function adicionarTarefa() {
       
