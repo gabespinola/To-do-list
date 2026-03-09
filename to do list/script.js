@@ -1,4 +1,4 @@
- let tarefas = []
+ let tarefas = JSON.parse(localStorage.getItem("tarefas")) || []
 
 function adicionarTarefa() {
       
@@ -33,6 +33,10 @@ function adicionarTarefa() {
 
     }
 
+function salvarTarefas(){
+  localStorage.setItem("tarefas", JSON.stringify(tarefas))
+}
+
 function renderizarTarefas(){
       
       const listatarefas= document.getElementById("listatarefas")
@@ -59,9 +63,11 @@ function renderizarTarefas(){
       novatarefa.appendChild(botaoeditar)
       listatarefas.appendChild(novatarefa)
 
+      
+
       }
       
-       
+      salvarTarefas() 
     }
 
     function removerTarefa(i){
@@ -81,8 +87,19 @@ function renderizarTarefas(){
     }
 
     function Limparlista(){
-      tarefas.length = 0
-      renderizarTarefas()
+    if(tarefas.length===0){
       const mensagem = document.getElementById("mensagem")
-      mensagem.textContent ="Lista de tarefas limpa com sucesso! "
+      mensagem.textContent= "Não ha tarefas para limpar!"
+      mensagem.className= " erro"
+      return
+    }else{
+      tarefas.length= 0 
+      renderizarTarefas()
+
+      const mensagem = document.getElementById("mensagem")
+      mensagem.textContent ="lista de tarefas limpa com sucesso!"
+      mensagem.className="sucesso"
+
     }
+    }
+    renderizarTarefas()
